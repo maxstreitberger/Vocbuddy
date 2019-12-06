@@ -1,0 +1,483 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		22C4624547E914F4E13307FB /* Pods_vocbuddy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A95B2BFEE48516B0CCF7C6 /* Pods_vocbuddy.framework */; };
+		8C507DCB23894CAA002880B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C507DCA23894CAA002880B2 /* AppDelegate.swift */; };
+		8C507DCD23894CAA002880B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C507DCC23894CAA002880B2 /* SceneDelegate.swift */; };
+		8C507DD423894CAF002880B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C507DD323894CAF002880B2 /* Assets.xcassets */; };
+		8C507DD723894CAF002880B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C507DD523894CAF002880B2 /* LaunchScreen.storyboard */; };
+		8C507DDF23894E45002880B2 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C507DDE23894E45002880B2 /* Colors.swift */; };
+		8C507DE123896693002880B2 /* Montserrat-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C507DE023896693002880B2 /* Montserrat-ExtraBold.ttf */; };
+		8C507DE423896E29002880B2 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C507DE323896E29002880B2 /* Montserrat-Medium.ttf */; };
+		8C6CDB05238A856E001338F7 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CDB04238A856D001338F7 /* WelcomeViewController.swift */; };
+		8C6CDB07238AD5EA001338F7 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C6CDB06238AD5EA001338F7 /* Montserrat-Bold.ttf */; };
+		8C6CDB09238ADAEC001338F7 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C6CDB08238ADAEC001338F7 /* Montserrat-SemiBold.ttf */; };
+		8C6CDB0B238AEAC3001338F7 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CDB0A238AEAC3001338F7 /* PlayViewController.swift */; };
+		8C6CDB0E238AFFD7001338F7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CDB0D238AFFD7001338F7 /* SettingsViewController.swift */; };
+		8C6CDB10238B0AA3001338F7 /* TopicsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CDB0F238B0AA3001338F7 /* TopicsTableViewCell.swift */; };
+		8C6CDB14238C031F001338F7 /* wrong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8C6CDB12238C031F001338F7 /* wrong.mp3 */; };
+		8C6CDB15238C031F001338F7 /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8C6CDB13238C031F001338F7 /* correct.mp3 */; };
+		8C6CDB17238C07CF001338F7 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CDB16238C07CF001338F7 /* FeedbackViewController.swift */; };
+		8C6CDB1A238C13CD001338F7 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C6CDB19238C13CD001338F7 /* Montserrat-Regular.ttf */; };
+		8C6CDB1C238D00AC001338F7 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CDB1B238D00AC001338F7 /* Word.swift */; };
+		8CC2F22D238D1524009E3982 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CC2F22C238D1524009E3982 /* GoogleService-Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8C507DC723894CAA002880B2 /* vocbuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vocbuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C507DCA23894CAA002880B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8C507DCC23894CAA002880B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		8C507DD323894CAF002880B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8C507DD623894CAF002880B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8C507DD823894CAF002880B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C507DDE23894E45002880B2 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		8C507DE023896693002880B2 /* Montserrat-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBold.ttf"; sourceTree = "<group>"; };
+		8C507DE323896E29002880B2 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		8C6CDB04238A856D001338F7 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		8C6CDB06238AD5EA001338F7 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		8C6CDB08238ADAEC001338F7 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
+		8C6CDB0A238AEAC3001338F7 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
+		8C6CDB0D238AFFD7001338F7 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		8C6CDB0F238B0AA3001338F7 /* TopicsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsTableViewCell.swift; sourceTree = "<group>"; };
+		8C6CDB12238C031F001338F7 /* wrong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wrong.mp3; sourceTree = "<group>"; };
+		8C6CDB13238C031F001338F7 /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
+		8C6CDB16238C07CF001338F7 /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
+		8C6CDB19238C13CD001338F7 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		8C6CDB1B238D00AC001338F7 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
+		8CC2F22C238D1524009E3982 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C9EC5A1E41B10A4CB8C524D5 /* Pods-vocbuddy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vocbuddy.release.xcconfig"; path = "Target Support Files/Pods-vocbuddy/Pods-vocbuddy.release.xcconfig"; sourceTree = "<group>"; };
+		D3A95B2BFEE48516B0CCF7C6 /* Pods_vocbuddy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vocbuddy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E664B3B5DD16DB65C5684E4C /* Pods-vocbuddy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vocbuddy.debug.xcconfig"; path = "Target Support Files/Pods-vocbuddy/Pods-vocbuddy.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8C507DC423894CAA002880B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22C4624547E914F4E13307FB /* Pods_vocbuddy.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1B27FCE592446891E4F05BDD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E664B3B5DD16DB65C5684E4C /* Pods-vocbuddy.debug.xcconfig */,
+				C9EC5A1E41B10A4CB8C524D5 /* Pods-vocbuddy.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		6A78DB82829ABD2BC0FE675E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D3A95B2BFEE48516B0CCF7C6 /* Pods_vocbuddy.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8C507DBE23894CAA002880B2 = {
+			isa = PBXGroup;
+			children = (
+				8C507DC923894CAA002880B2 /* vocbuddy */,
+				8C507DC823894CAA002880B2 /* Products */,
+				1B27FCE592446891E4F05BDD /* Pods */,
+				6A78DB82829ABD2BC0FE675E /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8C507DC823894CAA002880B2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8C507DC723894CAA002880B2 /* vocbuddy.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8C507DC923894CAA002880B2 /* vocbuddy */ = {
+			isa = PBXGroup;
+			children = (
+				8C507DCA23894CAA002880B2 /* AppDelegate.swift */,
+				8C507DCC23894CAA002880B2 /* SceneDelegate.swift */,
+				8C507DDE23894E45002880B2 /* Colors.swift */,
+				8C6CDB04238A856D001338F7 /* WelcomeViewController.swift */,
+				8C6CDB0A238AEAC3001338F7 /* PlayViewController.swift */,
+				8C6CDB16238C07CF001338F7 /* FeedbackViewController.swift */,
+				8C6CDB18238C07D8001338F7 /* Settings */,
+				8C507DD323894CAF002880B2 /* Assets.xcassets */,
+				8C6CDB1B238D00AC001338F7 /* Word.swift */,
+				8C507DD523894CAF002880B2 /* LaunchScreen.storyboard */,
+				8C6CDB11238C015E001338F7 /* Sounds */,
+				8C507DE223896697002880B2 /* Fonts */,
+				8C507DD823894CAF002880B2 /* Info.plist */,
+				8CC2F22C238D1524009E3982 /* GoogleService-Info.plist */,
+			);
+			path = vocbuddy;
+			sourceTree = "<group>";
+		};
+		8C507DE223896697002880B2 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				8C507DE023896693002880B2 /* Montserrat-ExtraBold.ttf */,
+				8C6CDB06238AD5EA001338F7 /* Montserrat-Bold.ttf */,
+				8C6CDB08238ADAEC001338F7 /* Montserrat-SemiBold.ttf */,
+				8C507DE323896E29002880B2 /* Montserrat-Medium.ttf */,
+				8C6CDB19238C13CD001338F7 /* Montserrat-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		8C6CDB11238C015E001338F7 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				8C6CDB13238C031F001338F7 /* correct.mp3 */,
+				8C6CDB12238C031F001338F7 /* wrong.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		8C6CDB18238C07D8001338F7 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				8C6CDB0D238AFFD7001338F7 /* SettingsViewController.swift */,
+				8C6CDB0F238B0AA3001338F7 /* TopicsTableViewCell.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8C507DC623894CAA002880B2 /* vocbuddy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C507DDB23894CAF002880B2 /* Build configuration list for PBXNativeTarget "vocbuddy" */;
+			buildPhases = (
+				E9F9F5E1C234007CC76B06AE /* [CP] Check Pods Manifest.lock */,
+				8C507DC323894CAA002880B2 /* Sources */,
+				8C507DC423894CAA002880B2 /* Frameworks */,
+				8C507DC523894CAA002880B2 /* Resources */,
+				7B30107E669EC0C1238F5299 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = vocbuddy;
+			productName = vocbuddy;
+			productReference = 8C507DC723894CAA002880B2 /* vocbuddy.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8C507DBF23894CAA002880B2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1120;
+				LastUpgradeCheck = 1120;
+				ORGANIZATIONNAME = "Max Streitberger";
+				TargetAttributes = {
+					8C507DC623894CAA002880B2 = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 8C507DC223894CAA002880B2 /* Build configuration list for PBXProject "vocbuddy" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8C507DBE23894CAA002880B2;
+			productRefGroup = 8C507DC823894CAA002880B2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8C507DC623894CAA002880B2 /* vocbuddy */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8C507DC523894CAA002880B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C6CDB1A238C13CD001338F7 /* Montserrat-Regular.ttf in Resources */,
+				8C6CDB09238ADAEC001338F7 /* Montserrat-SemiBold.ttf in Resources */,
+				8C6CDB07238AD5EA001338F7 /* Montserrat-Bold.ttf in Resources */,
+				8C507DD723894CAF002880B2 /* LaunchScreen.storyboard in Resources */,
+				8C6CDB15238C031F001338F7 /* correct.mp3 in Resources */,
+				8C507DE123896693002880B2 /* Montserrat-ExtraBold.ttf in Resources */,
+				8C507DE423896E29002880B2 /* Montserrat-Medium.ttf in Resources */,
+				8CC2F22D238D1524009E3982 /* GoogleService-Info.plist in Resources */,
+				8C6CDB14238C031F001338F7 /* wrong.mp3 in Resources */,
+				8C507DD423894CAF002880B2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7B30107E669EC0C1238F5299 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-vocbuddy/Pods-vocbuddy-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-vocbuddy/Pods-vocbuddy-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-vocbuddy/Pods-vocbuddy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E9F9F5E1C234007CC76B06AE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-vocbuddy-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8C507DC323894CAA002880B2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C6CDB0B238AEAC3001338F7 /* PlayViewController.swift in Sources */,
+				8C6CDB1C238D00AC001338F7 /* Word.swift in Sources */,
+				8C6CDB17238C07CF001338F7 /* FeedbackViewController.swift in Sources */,
+				8C6CDB0E238AFFD7001338F7 /* SettingsViewController.swift in Sources */,
+				8C6CDB05238A856E001338F7 /* WelcomeViewController.swift in Sources */,
+				8C507DDF23894E45002880B2 /* Colors.swift in Sources */,
+				8C507DCB23894CAA002880B2 /* AppDelegate.swift in Sources */,
+				8C507DCD23894CAA002880B2 /* SceneDelegate.swift in Sources */,
+				8C6CDB10238B0AA3001338F7 /* TopicsTableViewCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		8C507DD523894CAF002880B2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8C507DD623894CAF002880B2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8C507DD923894CAF002880B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8C507DDA23894CAF002880B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8C507DDC23894CAF002880B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E664B3B5DD16DB65C5684E4C /* Pods-vocbuddy.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YHBQR7DVN2;
+				INFOPLIST_FILE = vocbuddy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = streitberger.vocbuddy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		8C507DDD23894CAF002880B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C9EC5A1E41B10A4CB8C524D5 /* Pods-vocbuddy.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YHBQR7DVN2;
+				INFOPLIST_FILE = vocbuddy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = streitberger.vocbuddy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8C507DC223894CAA002880B2 /* Build configuration list for PBXProject "vocbuddy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C507DD923894CAF002880B2 /* Debug */,
+				8C507DDA23894CAF002880B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8C507DDB23894CAF002880B2 /* Build configuration list for PBXNativeTarget "vocbuddy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C507DDC23894CAF002880B2 /* Debug */,
+				8C507DDD23894CAF002880B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8C507DBF23894CAA002880B2 /* Project object */;
+}

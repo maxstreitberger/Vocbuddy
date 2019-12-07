@@ -17,6 +17,14 @@ class PlayViewController: UIViewController {
     
     //MARK: - Objects
     
+    //Top Spacing
+       let spacingView: UIView = {
+           let view = UIView()
+           view.backgroundColor = UIColor.clear
+           view.translatesAutoresizingMaskIntoConstraints = false
+           return view
+       }()
+    
     //Number of Questions Indicator View
     let questionIndicatorBackgroundView: UIView = {
         let view = UIView()
@@ -215,6 +223,10 @@ class PlayViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(r: 255, g: 114, b: 0)
         
+        //Top Spacing
+        view.addSubview(spacingView)
+
+        
         //Indicator
         view.addSubview(questionIndicatorBackgroundView)
         
@@ -248,13 +260,11 @@ class PlayViewController: UIViewController {
         }
         
         
-        
-        
         setUpIndicator()
         setUpNumberOfQuestion()
         setUpSeparationLine()
-        setUpQuestion()
         setUpAnswers()
+        setUpQuestion()
         setUpNextQuestionButton()
         setUpAlreadyKnown()
     }
@@ -290,9 +300,8 @@ class PlayViewController: UIViewController {
                 }
                 updateView(currentQuestion: question, previewState: preview)
             } else {
-                
+
                 if (preview == false) && (question >= 1) && (question <= 11) {
-                    nextQuestionButton.isHidden = false
 
                     sender.setTitleColor(UIColor.white, for: .normal)
                     
@@ -300,7 +309,6 @@ class PlayViewController: UIViewController {
 
                     if (sender.titleLabel?.text == words[question-1].original) {
                         
-                        playSound(answer: "correct")
                         sender.backgroundColor = UIColor(r: 106, g: 203, b: 176)
                         
                         
@@ -320,10 +328,9 @@ class PlayViewController: UIViewController {
                             rightWords.append(words[question-1])
                         }
                         
-                        
+                        playSound(answer: "correct")
                         
                     } else {
-                        playSound(answer: "wrong")
                         sender.backgroundColor = UIColor(r: 225, g: 72, b: 110)
                         
                         //Move word back to first phase
@@ -335,7 +342,9 @@ class PlayViewController: UIViewController {
                         //SetUp ImageView Constraints
                         setUpImageViewConstraints(tag: sender.tag, result: false, correctAnswer: correctAnswerButton!)
                         
+                        playSound(answer: "wrong")
                     }
+                    nextQuestionButton.isHidden = false
                 }
             }
             
@@ -347,17 +356,13 @@ class PlayViewController: UIViewController {
             } else if sender.titleLabel?.text == "Abfrage abbrechen" {
                 dismiss(animated: true, completion: nil)
             } else {
-                nextQuestionButton.isHidden = false
-
                 sender.setTitleColor(UIColor.white, for: .normal)
                 
                 words[question-1].lastQuery = dateFormatter.string(from: date)
 
                 if (sender.titleLabel?.text == words[question-1].original) {
-                    playSound(answer: "correct")
                     sender.backgroundColor = UIColor(r: 106, g: 203, b: 176)
-                    
-                    
+                                        
                     //SetUp ImageView Constraints
                     setUpImageViewConstraints(tag: sender.tag, result: true, correctAnswer: nil)
                     
@@ -374,8 +379,9 @@ class PlayViewController: UIViewController {
                         rightWords.append(words[question-1])
                     }
                     
+                    playSound(answer: "correct")
+                    
                 } else {
-                    playSound(answer: "wrong")
                     sender.backgroundColor = UIColor(r: 225, g: 72, b: 110)
 
                     //Move word back to first phase
@@ -387,11 +393,12 @@ class PlayViewController: UIViewController {
                     //SetUp ImageView Constraints
                     setUpImageViewConstraints(tag: sender.tag, result: false, correctAnswer: correctAnswerButton!)
                     
+                    playSound(answer: "wrong")
                 }
+                nextQuestionButton.isHidden = false
             }
             
         case 2:
-            
             nextQuestionButton.isHidden = false
 
             sender.setTitleColor(UIColor.white, for: .normal)
@@ -399,7 +406,7 @@ class PlayViewController: UIViewController {
             words[question-1].lastQuery = dateFormatter.string(from: date)
 
             if (sender.titleLabel?.text == words[question-1].original) {
-                playSound(answer: "correct")
+
                 sender.backgroundColor = UIColor(r: 106, g: 203, b: 176)
                 
                 
@@ -419,8 +426,9 @@ class PlayViewController: UIViewController {
                     rightWords.append(words[question-1])
                 }
                 
+                playSound(answer: "correct")
+                
             } else {
-                playSound(answer: "wrong")
                 sender.backgroundColor = UIColor(r: 225, g: 72, b: 110)
 
                 //Move word back to first phase
@@ -432,7 +440,9 @@ class PlayViewController: UIViewController {
                 //SetUp ImageView Constraints
                 setUpImageViewConstraints(tag: sender.tag, result: false, correctAnswer: correctAnswerButton!)
                 
+                playSound(answer: "wrong")
             }
+            nextQuestionButton.isHidden = false
         default:
             break
         }
@@ -635,13 +645,13 @@ class PlayViewController: UIViewController {
 //            DispatchQueue.global().async {
 //                self.audioPlayer?.play()
 //            }
+            
             audioPlayer?.play()
+                        
         } catch {
             print("error")
         }
     }
-    
-    
     
     
     //MARK: - Setup
@@ -667,7 +677,7 @@ class PlayViewController: UIViewController {
     
     func setUpAnswers() {
         answerButtonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        answerButtonStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -62).isActive = true
+        answerButtonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -62).isActive = true
         answerButtonStackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -100).isActive = true
         
         answerButtonStackView.addArrangedSubview(answer1Button)
@@ -683,8 +693,15 @@ class PlayViewController: UIViewController {
     }
     
     func setUpQuestion() {
+        //Top Spacing
+        spacingView.topAnchor.constraint(equalTo: separationLine.bottomAnchor).isActive = true
+        spacingView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.21).isActive = true
+        spacingView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
         questionStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        questionStackView.topAnchor.constraint(equalTo: separationLine.bottomAnchor, constant: 123).isActive = true
+//        questionStackView.topAnchor.constraint(equalTo: separationLine.bottomAnchor, constant: 123).isActive = true
+//        questionStackView.topAnchor.constraint(equalTo: separationLine.bottomAnchor, constant: 50).isActive = true
+        questionStackView.bottomAnchor.constraint(equalTo: spacingView.bottomAnchor).isActive = true
         questionStackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -100).isActive = true
         
         questionStackView.addArrangedSubview(originalWord)

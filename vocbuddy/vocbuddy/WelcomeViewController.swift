@@ -18,13 +18,31 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
     
     //MARK: - Objects
     
+    //Top Spacing
+    let topSpacingView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    //Bottom Spacing
+    let bottomSpacingView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    
     //Welcome Label
     let welcomeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Montserrat-Bold", size: 29)
         label.textColor = UIColor.white
         label.text = "Hey! Willkommen\nin der App."
-        label.numberOfLines = 0
+        label.numberOfLines = 2
+        label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -106,8 +124,9 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         label.text = "Hier kannst du Themen und Schwierigkeit anpassen."
         label.font = UIFont(name: "Montserrat-SemiBold", size: 16)
         label.textColor = UIColor.white
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         label.lineBreakMode = .byWordWrapping
+        label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -143,6 +162,10 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(r: 255, g: 114, b: 0)
+        
+        //Spacing
+        view.addSubview(topSpacingView)
+        view.addSubview(bottomSpacingView)
         
         //Welcome
         view.addSubview(welcomeLabel)
@@ -729,14 +752,12 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
             settingsTextButton.alpha = 0.25
             welcomeLabel.alpha = 0.25
             startButton.alpha = 0.25
-            feedbackButton.alpha = 0.25
             learnedWordsLabel.alpha = 0.25
         } else {
             settingsIconButton.alpha = 1.0
             settingsTextButton.alpha = 1.0
             welcomeLabel.alpha = 1.0
             startButton.alpha = 1.0
-            feedbackButton.alpha = 1.0
             learnedWordsLabel.alpha = 1.0
         }
     }
@@ -762,21 +783,33 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         //Label
         adviceLabel.rightAnchor.constraint(equalTo: tapOnSettingsIcon.leftAnchor, constant: -3).isActive = true
         adviceLabel.centerYAnchor.constraint(equalTo: tapOnSettingsIcon.bottomAnchor).isActive = true
-        adviceLabel.widthAnchor.constraint(equalToConstant: 240).isActive = true
+        adviceLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50).isActive = true
     }
     
     func setUpButtons() {
+        //Bottom Spacing
+        bottomSpacingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        bottomSpacingView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        if view.frame.height > 568 {
+            bottomSpacingView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25).isActive = true
+        } else {
+            bottomSpacingView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2).isActive = true
+        }
+        
         //Start
         startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         startButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -100).isActive = true
         startButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        startButton.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 100).isActive = true
+//        startButton.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 100).isActive = true
+        startButton.bottomAnchor.constraint(equalTo: feedbackButton.topAnchor, constant: -24).isActive = true
         
         //Feedback
         feedbackButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         feedbackButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -100).isActive = true
         feedbackButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        feedbackButton.topAnchor.constraint(equalTo: startButton.bottomAnchor, constant: 24).isActive = true
+//        feedbackButton.topAnchor.constraint(equalTo: startButton.bottomAnchor, constant: 24).isActive = true
+        feedbackButton.bottomAnchor.constraint(equalTo: bottomSpacingView.topAnchor).isActive = true
     }
     
     func setUpLearnedWordsLabel() {
@@ -797,8 +830,14 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
     }
     
     func setUpWelcomeLabel() {
+        //Top Spacing
+        topSpacingView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        topSpacingView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3).isActive = true
+        topSpacingView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
         welcomeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         welcomeLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -100).isActive = true
-        welcomeLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 229).isActive = true
+//        welcomeLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 229).isActive = true
+        welcomeLabel.topAnchor.constraint(equalTo: topSpacingView.bottomAnchor).isActive = true
     }
 }

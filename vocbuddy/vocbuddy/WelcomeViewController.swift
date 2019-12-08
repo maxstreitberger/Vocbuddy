@@ -769,10 +769,6 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         spinnerActivity.frame = CGRect(x: x, y: y, width: 88, height: 105)
         spinnerActivity.backgroundColor = UIColor.white
         spinnerActivity.layer.cornerRadius = 10
-        
-        
-        
-        
     }
     
     func setUpAdvice() {

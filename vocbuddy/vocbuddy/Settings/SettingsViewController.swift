@@ -158,9 +158,14 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         return button
     }()
     
+    
+    //Spinner Activity
+    let spinnerActivity = UIActivityIndicatorView(style: .large)
+    
+    
     var settingsDelegate: SettingsDelegate?
     
-    var level: String?
+    var level = ""
     var topic = ""
     var allTopics = [String]()
     
@@ -179,12 +184,16 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         //Select Filter
         view.addSubview(selectFilterButton)
         
+        //Spinner Activity
+        view.addSubview(spinnerActivity)
+        
         topic = currentTopic
         
         setUpLevel()
         setUpTopics()
         setUpSelectFilterButton()
         fetchTopics()
+        setUpSpinnerActivity()
         
         //Register Cell
         topicsTableView.register(TopicsTableViewCell.self, forCellReuseIdentifier: "topicsCell")
@@ -243,17 +252,26 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             level = "3"
         }
         
-        settingsDelegate?.selectSettings(topic: topic, level: level!)
-        
-        
-        dismiss(animated: true, completion: nil)
+        if level == "" || topic == "" {
+            let alert = UIAlertController(title: "Fehler", message: "Du musst ein Level und ein Thema auswählen", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
+        } else {
+            settingsDelegate?.selectSettings(topic: topic, level: level)
+            
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     func fetchTopics() {
+        view.isUserInteractionEnabled = false
+        spinnerActivity.startAnimating()
         Database.database().reference().child("Words").observe(.childAdded) { (snapshot) in
             self.allTopics.append(snapshot.key)
             
             DispatchQueue.main.async {
+                self.view.isUserInteractionEnabled = true
+                self.spinnerActivity.stopAnimating()
                 self.topicsTableView.reloadData()
             }
         }
@@ -262,6 +280,15 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     //MARK: - Setup
+    
+    func setUpSpinnerActivity() {
+        spinnerActivity.color = UIColor(r: 255, g: 114, b: 0)
+        let x = view.frame.width / 2 - 44
+        let y = view.frame.height / 2 - 50.25
+        spinnerActivity.frame = CGRect(x: x, y: y, width: 88, height: 105)
+        spinnerActivity.backgroundColor = UIColor.white
+        spinnerActivity.layer.cornerRadius = 10
+    }
     
     func setUpSelectFilterButton() {
         selectFilterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

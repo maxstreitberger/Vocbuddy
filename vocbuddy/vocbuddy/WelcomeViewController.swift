@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import Lottie
 
 var allWords = [Word]()
 var currentTopic = ""
@@ -33,6 +34,9 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    
+    
     
     
     //Welcome Label
@@ -140,6 +144,28 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
     }()
     
     
+    //Lottie Animation
+    let lottieView: AnimationView = {
+        let lottieView = AnimationView()
+        lottieView.isHidden = true
+        lottieView.translatesAutoresizingMaskIntoConstraints = false
+        return lottieView
+    }()
+    
+    
+    //Loading Label
+    let loadingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Vokabeln werden geladen"
+        label.textColor = UIColor.white
+        label.font = UIFont(name: "Montserrat-Medium", size: 16)
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     
     //Spinner Activity
     let spinnerActivity = UIActivityIndicatorView(style: .large)
@@ -157,8 +183,11 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
     
     
     var learnedWordsInt = 0
+    
+    var numberOfWords = 0
             
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(r: 255, g: 114, b: 0)
@@ -186,11 +215,14 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         //Advice
         view.addSubview(adviceLabel)
         view.addSubview(tapOnSettingsIcon)
+        
+        //Loading
+//        view.addSubview(lottieView)
+        view.addSubview(loadingLabel)
 
         //Spinner Activity
         view.addSubview(spinnerActivity)
-        
-        
+                
         
         if let loadFirstTime = UserDefaults.standard.object(forKey: "firstTime") as? Bool {
             firstTime = loadFirstTime
@@ -199,6 +231,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         print(firstTime)
         
         if firstTime {
+            UserDefaults.standard.setValue("2", forKey: "level")
             welcomeLabel.alpha = 0.25
             learnedWordsLabel.alpha = 0.25
             startButton.setTitle("Alles klar!", for: .normal)
@@ -212,32 +245,38 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         setUpLearnedWordsLabel()
         setUpButtons()
         setUpAdvice()
-        setUpSpinnerActivity()
         
+        
+        
+        setUpLoadingScreen()
+//        setUpSpinnerActivity()
+        
+        
+        
+//        if let animationView = LOTAnimationView(name: "servishero_loading") {
+//            animationView.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
+//            animationView.center = self.view.center
+//            animationView.contentMode = .scaleAspectFill
+//
+//            view.addSubview(animationView)
+//
+//            animationView.play()
+//        }
+//        self.lottieView.play()
         
         createUser()
-//        checkWordsInDB()
-//        checkWordsInUserDefaults()
-//        checkLearnedWords()
-        
-//        getAllWordsFromDB()
-//        getTopicsFromDB()
-//
-//        updateWords()
-//        getWords(topic: "Test", level: "1")
-        
-        
-//        updateWords()
+
+
         getSavedWords()
-        test()
-        
+        checkDate()
+
     }
     
     
     
     //MARK: - Functions
     
-    func test() {
+    func checkDate() {
         print("All Words: \(allWords)")
         
         
@@ -300,7 +339,8 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
                 
                 
                 if let encoded = try? encoder.encode(allWords) {
-                    UserDefaults.standard.set(encoded, forKey: "\(currentTopic)-\(currentLevel)")
+                    UserDefaults.standard.set(encoded, forKey: currentLevel)
+                    
                 }
                 
             } else {
@@ -347,55 +387,79 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
     
     func getSavedWords() {
         //Check if a topic and a level is available
-        let topicOfUD = UserDefaults.standard.value(forKey: "topic") as? String
+//        let topicOfUD = UserDefaults.standard.value(forKey: "topic") as? String
         let levelOfUD = UserDefaults.standard.value(forKey: "level") as? String
     
-        guard let topic = topicOfUD, !topic.isEmpty, let level = levelOfUD, !level.isEmpty else { return }
+//        guard let topic = topicOfUD, !topic.isEmpty, let level = levelOfUD, !level.isEmpty else { return }
         
-        currentTopic = topic
+        guard let level = levelOfUD, !level.isEmpty else { return }
+
+        
+//        currentTopic = topic
         currentLevel = level
         
-        print("Topic: \(currentTopic)")
+//        print("Topic: \(currentTopic)")
         print("Level: \(currentLevel)")
         
         allWords.removeAll()
-        getWords(topic: topic, level: level)
+        
+        getWords(level: level)
     }
-
     
     
-    func getWords(topic: String, level: String) {
+    func getWords(level: String) {
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
-        
-        
-        let testDate = Calendar.current.date(byAdding: .day, value: -10, to: date)!
-                
-        
-        if let savedWords = UserDefaults.standard.object(forKey: "\(topic)-\(level)") as? Data {
+
+//        if let savedWords = UserDefaults.standard.object(forKey: "\(topic)-\(level)") as? Data {
+//            if let loadedWords = try? JSONDecoder().decode([FailableDecodable<Word>].self, from: savedWords).compactMap { $0.base } {
+//                allWords = loadedWords
+//            }
+//        } else {
+//            Database.database().reference().child("Words").child(topic).child(level).observe(.childAdded) { (snapshot) in
+//                self.setUpLoadingScreen(true)
+//                self.spinnerActivity.startAnimating()
+//                if let dict = snapshot.value as? [String: Any] {
+//                    let word = Word(original: "\(dict["original"]!)", translated: "\(dict["translated"]!)", level: "\(dict["level"]!)", phase: "\(dict["phase"]!)", lastQuery: dateFormatter.string(from: testDate), learned: false)
+//                    allWords.append(word)
+//                }
+//
+//                let encoder = JSONEncoder()
+//                if let encoded = try? encoder.encode(allWords) {
+//                    UserDefaults.standard.set(encoded, forKey: "\(topic)-\(level)")
+//                    DispatchQueue.main.async {
+//                        self.setUpLoadingScreen(false)
+//                        self.spinnerActivity.stopAnimating()
+//                    }
+//                }
+//            }
+//        }
+
+        if let savedWords = UserDefaults.standard.object(forKey: level) as? Data {
             if let loadedWords = try? JSONDecoder().decode([FailableDecodable<Word>].self, from: savedWords).compactMap { $0.base } {
                 allWords = loadedWords
             }
         } else {
-            Database.database().reference().child("Words").child(topic).child(level).observe(.childAdded) { (snapshot) in
-                self.setUpLoadingScreen(true)
+            Database.database().reference().child("Words").child(level).observe(.childAdded) { (snapshot) in
+                self.setUpLoading(true)
                 self.spinnerActivity.startAnimating()
                 if let dict = snapshot.value as? [String: Any] {
-                    let word = Word(original: "\(dict["original"]!)", translated: "\(dict["translated"]!)", level: "\(dict["level"]!)", phase: "\(dict["phase"]!)", lastQuery: dateFormatter.string(from: testDate), learned: false)
+                    let word = Word(original: "\(dict["original"]!)", translated: "\(dict["translated"]!)", level: "\(dict["level"]!)", phase: "1", lastQuery: dateFormatter.string(from: date), learned: false)
                     allWords.append(word)
                 }
-                        
+        
                 let encoder = JSONEncoder()
                 if let encoded = try? encoder.encode(allWords) {
-                    UserDefaults.standard.set(encoded, forKey: "\(topic)-\(level)")
+                    UserDefaults.standard.set(encoded, forKey: level)
                     DispatchQueue.main.async {
-                        self.setUpLoadingScreen(false)
+                        self.setUpLoading(false)
                         self.spinnerActivity.stopAnimating()
                     }
                 }
             }
         }
+        
         
         if let savedWords = UserDefaults.standard.object(forKey: "todaysWords") as? Data {
             if let loadedWords = try? JSONDecoder().decode([FailableDecodable<Word>].self, from: savedWords).compactMap { $0.base } {
@@ -416,10 +480,9 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         }
     }
     
-
     
     @objc func start() {
-                        
+        print("All Words: \(allWords.count)")
         if firstTime {
             firstTime = false
             UserDefaults.standard.set(firstTime, forKey: "firstTime")
@@ -429,32 +492,24 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
                 self.welcomeLabel.alpha = 1
                 self.learnedWordsLabel.alpha = 1
                 self.startButton.setTitle("Abfrage starten", for: .normal)
-                
+
                 self.adviceLabel.alpha = 0
                 self.tapOnSettingsIcon.alpha = 0
             }
         } else {
-            if allWords.isEmpty {
-                let alert = UIAlertController(title: "Fehler", message: "Du musst noch ein Level und Thema auswählen.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                present(alert, animated: true, completion: nil)
-            } else {
-                print(todaysWords.count)
-                print(alreadyDoneWords.count)
-                print(allWords.count)
-                
-                selectWords()
+            print(todaysWords.count)
+            print(alreadyDoneWords.count)
+            print(allWords.count)
 
-                generateQuestions()
-                
-                
-                let playViewController = PlayViewController()
-                playViewController.modalPresentationStyle = .overFullScreen
-                playViewController.resultDelegate = self
-                playViewController.words = generatedWords
-                playViewController.answers = allWords
-                present(playViewController, animated: true, completion: nil)
-            }
+            selectWords()
+            generateQuestions()
+
+            let playViewController = PlayViewController()
+            playViewController.modalPresentationStyle = .overFullScreen
+            playViewController.resultDelegate = self
+            playViewController.words = generatedWords
+            playViewController.answers = allWords
+            present(playViewController, animated: true, completion: nil)
         }
     }
     
@@ -547,37 +602,38 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         
         var counter = 1
         
-        if todaysWords.count == 0 {
-            print("Refill")
-            print(alreadyDoneWords)
-            todaysWords = alreadyDoneWords
-            alreadyDoneWords.removeAll()
-            
-            let encoder = JSONEncoder()
-            if let encoded = try? encoder.encode(alreadyDoneWords) {
-                UserDefaults.standard.set(encoded, forKey: "alreadyUsedWords")
-            }
-        }
-        
-        while counter <= 10 {
-            var randomNumber = Int(arc4random_uniform(UInt32(todaysWords.count)))
-            var word = todaysWords[randomNumber]
-                        
-            for alreadyUsedWord in alreadyDoneWords {
-                if word.original == alreadyUsedWord.original {
-                    randomNumber = Int(arc4random_uniform(UInt32(todaysWords.count)))
-                    word = todaysWords[randomNumber]
+        if allWords.isEmpty == false {
+            if todaysWords.count == 0 {
+                print("Refill")
+                print(alreadyDoneWords)
+                todaysWords = alreadyDoneWords
+                alreadyDoneWords.removeAll()
+                
+                let encoder = JSONEncoder()
+                if let encoded = try? encoder.encode(alreadyDoneWords) {
+                    UserDefaults.standard.set(encoded, forKey: "alreadyUsedWords")
                 }
             }
-        
-            todaysWords.remove(at: randomNumber)
-            generatedWords.append(word)
             
-            counter += 1
+            while counter <= 10 {
+                var randomNumber = Int(arc4random_uniform(UInt32(todaysWords.count)))
+                var word = todaysWords[randomNumber]
+                            
+                for alreadyUsedWord in alreadyDoneWords {
+                    if word.original == alreadyUsedWord.original {
+                        randomNumber = Int(arc4random_uniform(UInt32(todaysWords.count)))
+                        word = todaysWords[randomNumber]
+                    }
+                }
+            
+                todaysWords.remove(at: randomNumber)
+                generatedWords.append(word)
+                
+                counter += 1
+            }
+            
+            print("Generated words: \(generatedWords)")
         }
-        
-        print("Generated words: \(generatedWords)")
-        
     }
     
     func result(rightWordsInt: Int, learnedWordsList: [Word], rightWords: [Word], wrongWords: [Word], alreadyKnownWords: [Word]) {
@@ -585,26 +641,26 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         alreadyDoneWords += rightWords
         alreadyDoneWords += wrongWords
                 
-        for alreadyKnownWord in alreadyKnownWords {
-            for alreadyDoneWord in alreadyDoneWords {
-                if alreadyDoneWord.original == alreadyKnownWord.original {
-                    let index = alreadyDoneWords.firstIndex(where: {$0.original == alreadyDoneWord.original})
-                    alreadyDoneWords.remove(at: index!)
-                }
-            }
-        }
+//        for alreadyKnownWord in alreadyKnownWords {
+//            for alreadyDoneWord in alreadyDoneWords {
+//                if alreadyDoneWord.original == alreadyKnownWord.original {
+//                    let index = alreadyDoneWords.firstIndex(where: {$0.original == alreadyDoneWord.original})
+//                    alreadyDoneWords.remove(at: index!)
+//                }
+//            }
+//        }
         
-        if yesterdayWrongWords.count >= alreadyKnownWords.count {
-            for _ in alreadyKnownWords {
-                let randomNumber = Int(arc4random_uniform(UInt32(yesterdayWrongWords.count)))
-                alreadyDoneWords.append(yesterdayWrongWords[randomNumber])
-            }
-        } else {
-            for _ in alreadyKnownWords {
-                let randomNumber = Int(arc4random_uniform(UInt32(allWords.count)))
-                alreadyDoneWords.append(allWords[randomNumber])
-            }
-        }
+//        if yesterdayWrongWords.count >= alreadyKnownWords.count {
+//            for _ in alreadyKnownWords {
+//                let randomNumber = Int(arc4random_uniform(UInt32(yesterdayWrongWords.count)))
+//                alreadyDoneWords.append(yesterdayWrongWords[randomNumber])
+//            }
+//        } else {
+//            for _ in alreadyKnownWords {
+//                let randomNumber = Int(arc4random_uniform(UInt32(allWords.count)))
+//                alreadyDoneWords.append(allWords[randomNumber])
+//            }
+//        }
         
         for word in allWords {
             for learnedWord in learnedWordsList {
@@ -620,6 +676,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         settingsTextButton.setTitle("Themengebiete ändern", for: .normal)
         startButton.setTitle("Nächste Runde", for: .normal)
         feedbackButton.alpha = 1
+
 
         
         
@@ -649,7 +706,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         }
         
         if let encoded = try? encoder.encode(allWords) {
-            UserDefaults.standard.set(encoded, forKey: "\(currentTopic)-\(currentLevel)")
+            UserDefaults.standard.set(encoded, forKey: currentLevel)
         }
         
         
@@ -665,7 +722,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
             }
         }
         
-        if let savedWords = UserDefaults.standard.object(forKey: "\(currentTopic)-\(currentLevel)") as? Data {
+        if let savedWords = UserDefaults.standard.object(forKey: currentLevel) as? Data {
             if let loadedWords = try? JSONDecoder().decode([FailableDecodable<Word>].self, from: savedWords).compactMap { $0.base } {
                 allWords = loadedWords
             }
@@ -677,12 +734,11 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         
     }
     
-    func selectSettings(topic: String, level: String) {
-        UserDefaults.standard.set(topic, forKey: "topic")
+    func selectSettings(level: String) {
+//        UserDefaults.standard.set(topic, forKey: "topic")
         UserDefaults.standard.set(level, forKey: "level")
         
-        currentTopic = topic
-        currentLevel = level
+//        currentTopic = topic
         
         todaysWords.removeAll()
         alreadyDoneWords.removeAll()
@@ -725,7 +781,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         
         allWords.removeAll()
 
-        getWords(topic: topic, level: level)
+        getWords(level: level)
         print(allWords.count)
     }
     
@@ -746,29 +802,62 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
     
     //MARK: - SetUp
     
-    func setUpLoadingScreen(_ loading: Bool) {
+    func setUpLoading(_ loading: Bool) {
         if loading {
-            settingsIconButton.alpha = 0.25
-            settingsTextButton.alpha = 0.25
-            welcomeLabel.alpha = 0.25
-            startButton.alpha = 0.25
-            learnedWordsLabel.alpha = 0.25
+            lottieView.isHidden = false
+            loadingLabel.isHidden = false
+            settingsIconButton.alpha = 0.0
+            settingsTextButton.alpha = 0.0
+            welcomeLabel.alpha = 0.0
+            startButton.alpha = 0.0
+            tapOnSettingsIcon.alpha = 0.0
+            adviceLabel.alpha = 0.0
+            learnedWordsLabel.alpha = 0.0
         } else {
+            lottieView.isHidden = true
+            loadingLabel.isHidden = true
             settingsIconButton.alpha = 1.0
             settingsTextButton.alpha = 1.0
-            welcomeLabel.alpha = 1.0
+            
+            if firstTime {
+                welcomeLabel.alpha = 0.25
+                learnedWordsLabel.alpha = 0.25
+                tapOnSettingsIcon.alpha = 1.0
+                adviceLabel.alpha = 1.0
+            }  else {
+                welcomeLabel.alpha = 1.0
+                learnedWordsLabel.alpha = 1.0
+                tapOnSettingsIcon.alpha = 0.0
+                adviceLabel.alpha = 0.0
+            }
+            
             startButton.alpha = 1.0
-            learnedWordsLabel.alpha = 1.0
         }
     }
     
-    func setUpSpinnerActivity() {
-        spinnerActivity.color = UIColor(r: 255, g: 114, b: 0)
-        let x = view.frame.width / 2 - 44
-        let y = view.frame.height / 2 - 50.25
-        spinnerActivity.frame = CGRect(x: x, y: y, width: 88, height: 105)
-        spinnerActivity.backgroundColor = UIColor.white
-        spinnerActivity.layer.cornerRadius = 10
+//    func setUpSpinnerActivity() {
+//        spinnerActivity.color = UIColor(r: 255, g: 114, b: 0)
+//        let x = view.frame.width / 2 - 44
+//        let y = view.frame.height / 2 - 50.25
+//        spinnerActivity.frame = CGRect(x: x, y: y, width: 88, height: 105)
+//        spinnerActivity.backgroundColor = UIColor.white
+//        spinnerActivity.layer.cornerRadius = 10
+//    }
+    
+    func setUpLoadingScreen() {
+        //Spinner Activity
+        spinnerActivity.color = UIColor.white
+        spinnerActivity.center = CGPoint(x: self.view.frame.size.width / 2.0, y: self.view.frame.size.height / 2.0)
+//        let x = view.frame.width / 2 - 44
+//        let y = view.frame.height / 2 - 50.25
+//        spinnerActivity.frame = CGRect(x: x, y: y, width: 88, height: 105)
+//        spinnerActivity.backgroundColor = UIColor.white
+//        spinnerActivity.layer.cornerRadius = 10
+        
+        //Loading Label
+        loadingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loadingLabel.topAnchor.constraint(equalTo: spinnerActivity.bottomAnchor, constant: 30).isActive = true
+        loadingLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -160).isActive = true
     }
     
     func setUpAdvice() {

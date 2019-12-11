@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="19C32e" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Advanced" representedClassName="Advanced" syncable="YES" codeGenerationType="class">
+        <attribute name="level" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="original" optional="YES" attributeType="String"/>
+        <attribute name="translated" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Beginner" representedClassName="Beginner" syncable="YES" codeGenerationType="class">
+        <attribute name="level" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="original" optional="YES" attributeType="String"/>
+        <attribute name="translated" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Profi" representedClassName="Profi" syncable="YES" codeGenerationType="class">
+        <attribute name="level" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="original" optional="YES" attributeType="String"/>
+        <attribute name="translated" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="Beginner" positionX="-1444.09375" positionY="-128.2890625" width="128" height="88"/>
+        <element name="Advanced" positionX="-1404" positionY="-72" width="128" height="88"/>
+        <element name="Profi" positionX="-1377" positionY="-54" width="128" height="88"/>
+    </elements>
+</model>

@@ -13,7 +13,7 @@ protocol ResultDelegate {
     func result(rightWordsInt: Int, learnedWordsList: [Word], rightWords: [Word], wrongWords: [Word], alreadyKnownWords: [Word])
 }
 
-class PlayViewController: UIViewController {
+class PlayViewController: UIViewController, AVAudioPlayerDelegate {
     
     //MARK: - Objects
     
@@ -156,16 +156,6 @@ class PlayViewController: UIViewController {
     }()
     
     
-    //Next Answer
-    let nextQuestionButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .clear
-        button.addTarget(self, action: #selector(nextQuestion), for: .touchUpInside)
-        button.isHidden = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
     
     //Already Known
     let alreadyKnownButton: UIButton = {
@@ -245,9 +235,6 @@ class PlayViewController: UIViewController {
         //ImageViews
         view.addSubview(resultAnswerImageView)
         
-        //Next Answer
-        view.addSubview(nextQuestionButton)
-        
         //Already Known
         view.addSubview(alreadyKnownButtonBackgroundView)
         
@@ -265,21 +252,42 @@ class PlayViewController: UIViewController {
         setUpSeparationLine()
         setUpAnswers()
         setUpQuestion()
-        setUpNextQuestionButton()
         setUpAlreadyKnown()
     }
     
     //MARK: - Functions
     
-    @objc func nextQuestion() {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        self.view.isUserInteractionEnabled = true
         question += 1
         updateView(currentQuestion: question, previewState: preview)
     }
     
     @objc func iKnowItAlready() {
+        var randomNumber = Int(arc4random_uniform(UInt32(allWords.count)))
+        var newWord = allWords[randomNumber]
+        
+        while words.contains(where: {$0.original == newWord.original}) && newWord.phase != "1" {
+            randomNumber = Int(arc4random_uniform(UInt32(allWords.count)))
+            newWord = allWords[randomNumber]
+        }
+        
+        let allWordsIndex = allWords.firstIndex(where: {$0.original == words[question-1].original})
+        allWords.remove(at: allWordsIndex!)
+        allWords.append(newWord)
+
+        
+        let currentWordIndex = words.firstIndex(where: {$0.original == words[question-1].original})
+        words.remove(at: currentWordIndex!)
+        words.insert(newWord, at: currentWordIndex!)
+
+        
         if alreadyKnown.contains(where: {$0.original == words[question-1].original}) == false {
             alreadyKnown.append(words[question-1])
         }
+        
+        originalWord.text = words[question-1].original
+        translatedWord.text = words[question-1].translated
     }
     
     @objc func chooseAnswer(_ sender: UIButton) {
@@ -302,6 +310,7 @@ class PlayViewController: UIViewController {
             } else {
 
                 if (preview == false) && (question >= 1) && (question <= 11) {
+                    self.view.isUserInteractionEnabled = false
 
                     sender.setTitleColor(UIColor.white, for: .normal)
                     
@@ -344,7 +353,6 @@ class PlayViewController: UIViewController {
                         
                         playSound(answer: "wrong")
                     }
-                    nextQuestionButton.isHidden = false
                 }
             }
             
@@ -356,6 +364,7 @@ class PlayViewController: UIViewController {
             } else if sender.titleLabel?.text == "Abfrage abbrechen" {
                 dismiss(animated: true, completion: nil)
             } else {
+                self.view.isUserInteractionEnabled = false
                 sender.setTitleColor(UIColor.white, for: .normal)
                 
                 words[question-1].lastQuery = dateFormatter.string(from: date)
@@ -395,17 +404,16 @@ class PlayViewController: UIViewController {
                     
                     playSound(answer: "wrong")
                 }
-                nextQuestionButton.isHidden = false
             }
             
         case 2:
-            nextQuestionButton.isHidden = false
 
             sender.setTitleColor(UIColor.white, for: .normal)
             
             words[question-1].lastQuery = dateFormatter.string(from: date)
 
             if (sender.titleLabel?.text == words[question-1].original) {
+                self.view.isUserInteractionEnabled = false
 
                 sender.backgroundColor = UIColor(r: 106, g: 203, b: 176)
                 
@@ -442,12 +450,10 @@ class PlayViewController: UIViewController {
                 
                 playSound(answer: "wrong")
             }
-            nextQuestionButton.isHidden = false
+
         default:
             break
         }
- 
-
     }
     
     func setUpImageViewConstraints(tag: Int, result: Bool, correctAnswer: Int?) {
@@ -524,8 +530,6 @@ class PlayViewController: UIViewController {
     }
         
     func updateView(currentQuestion: Int, previewState: Bool) {
-        nextQuestionButton.isHidden = true
-        
         //Reset Buttons
         answer1Button.backgroundColor = UIColor.white
         answer1Button.setTitleColor(UIColor(r: 255, g: 114, b: 0), for: .normal)
@@ -645,13 +649,14 @@ class PlayViewController: UIViewController {
 //            DispatchQueue.global().async {
 //                self.audioPlayer?.play()
 //            }
-            
+            audioPlayer?.delegate = self
             audioPlayer?.play()
                         
         } catch {
             print("error")
         }
     }
+    
     
     
     //MARK: - Setup
@@ -666,13 +671,6 @@ class PlayViewController: UIViewController {
         alreadyKnownButton.topAnchor.constraint(equalTo: alreadyKnownButtonBackgroundView.topAnchor).isActive = true
         alreadyKnownButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         alreadyKnownButton.centerXAnchor.constraint(equalTo: alreadyKnownButtonBackgroundView.centerXAnchor).isActive = true
-    }
-    
-    func setUpNextQuestionButton() {
-        nextQuestionButton.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        nextQuestionButton.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        nextQuestionButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        nextQuestionButton.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
     }
     
     func setUpAnswers() {

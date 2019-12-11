@@ -10,10 +10,10 @@ import UIKit
 import FirebaseDatabase
 
 protocol SettingsDelegate {
-    func selectSettings(topic: String, level: String)
+    func selectSettings(level: String)
 }
 
-class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SettingsViewController: UIViewController {
 
     //MARK: - Objects
     
@@ -127,22 +127,22 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     //Topics
-    let topicsLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "Montserrat-Bold", size: 29)
-        label.text = "Deine Themen"
-        label.textColor = UIColor.white
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let topicsTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor(r: 255, g: 114, b: 0)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
+//    let topicsLabel: UILabel = {
+//        let label = UILabel()
+//        label.font = UIFont(name: "Montserrat-Bold", size: 29)
+//        label.text = "Deine Themen"
+//        label.textColor = UIColor.white
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
+//
+//    let topicsTableView: UITableView = {
+//        let tableView = UITableView()
+//        tableView.separatorStyle = .none
+//        tableView.backgroundColor = UIColor(r: 255, g: 114, b: 0)
+//        tableView.translatesAutoresizingMaskIntoConstraints = false
+//        return tableView
+//    }()
     
     
     //Select Filter
@@ -166,8 +166,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     var settingsDelegate: SettingsDelegate?
     
     var level = ""
-    var topic = ""
-    var allTopics = [String]()
+//    var topic = ""
+//    var allTopics = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -178,8 +178,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         view.addSubview(levelStackView)
         
         //Topics
-        view.addSubview(topicsLabel)
-        view.addSubview(topicsTableView)
+//        view.addSubview(topicsLabel)
+//        view.addSubview(topicsTableView)
         
         //Select Filter
         view.addSubview(selectFilterButton)
@@ -187,20 +187,20 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         //Spinner Activity
         view.addSubview(spinnerActivity)
         
-        topic = currentTopic
+//        topic = currentTopic
         
         setUpLevel()
-        setUpTopics()
+//        setUpTopics()
         setUpSelectFilterButton()
-        fetchTopics()
+//        fetchTopics()
         setUpSpinnerActivity()
         
         //Register Cell
-        topicsTableView.register(TopicsTableViewCell.self, forCellReuseIdentifier: "topicsCell")
+//        topicsTableView.register(TopicsTableViewCell.self, forCellReuseIdentifier: "topicsCell")
         
         //Delegate + DataSource
-        topicsTableView.delegate = self
-        topicsTableView.dataSource = self
+//        topicsTableView.delegate = self
+//        topicsTableView.dataSource = self
         
         
         
@@ -252,30 +252,31 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             level = "3"
         }
         
-        if level == "" || topic == "" {
-            let alert = UIAlertController(title: "Fehler", message: "Du musst ein Level und ein Thema auswählen", preferredStyle: .alert)
+        if level == "" {
+            let alert = UIAlertController(title: "Fehler", message: "Du musst ein Level auswählen", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)
         } else {
-            settingsDelegate?.selectSettings(topic: topic, level: level)
+            currentLevel = level
+            settingsDelegate?.selectSettings(level: level)
             
             dismiss(animated: true, completion: nil)
         }
     }
     
-    func fetchTopics() {
-        view.isUserInteractionEnabled = false
-        spinnerActivity.startAnimating()
-        Database.database().reference().child("Words").observe(.childAdded) { (snapshot) in
-            self.allTopics.append(snapshot.key)
-            
-            DispatchQueue.main.async {
-                self.view.isUserInteractionEnabled = true
-                self.spinnerActivity.stopAnimating()
-                self.topicsTableView.reloadData()
-            }
-        }
-    }
+//    func fetchTopics() {
+//        view.isUserInteractionEnabled = false
+//        spinnerActivity.startAnimating()
+//        Database.database().reference().child("Words").observe(.childAdded) { (snapshot) in
+//            self.allTopics.append(snapshot.key)
+//
+//            DispatchQueue.main.async {
+//                self.view.isUserInteractionEnabled = true
+//                self.spinnerActivity.stopAnimating()
+//                self.topicsTableView.reloadData()
+//            }
+//        }
+//    }
     
     
     
@@ -297,15 +298,15 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         selectFilterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
     }
     
-    func setUpTopics() {
-        topicsLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50).isActive = true
-        topicsLabel.topAnchor.constraint(equalTo: levelStackView.bottomAnchor, constant: 35).isActive = true
-        
-        topicsTableView.topAnchor.constraint(equalTo: topicsLabel.bottomAnchor, constant: 20).isActive = true
-        topicsTableView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -100).isActive = true
-        topicsTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        topicsTableView.bottomAnchor.constraint(equalTo: selectFilterButton.topAnchor, constant: -20).isActive = true
-    }
+//    func setUpTopics() {
+//        topicsLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50).isActive = true
+//        topicsLabel.topAnchor.constraint(equalTo: levelStackView.bottomAnchor, constant: 35).isActive = true
+//
+//        topicsTableView.topAnchor.constraint(equalTo: topicsLabel.bottomAnchor, constant: 20).isActive = true
+//        topicsTableView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -100).isActive = true
+//        topicsTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        topicsTableView.bottomAnchor.constraint(equalTo: selectFilterButton.topAnchor, constant: -20).isActive = true
+//    }
     
     func setUpLevel() {
         levelLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50).isActive = true
@@ -340,13 +341,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     //MARK: - TableViewDataSource
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allTopics.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 48
-    }
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return allTopics.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 48
+//    }
     
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        tableView.reloadData()
@@ -361,34 +362,34 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 //        }
 //    }
     
-    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-        topic = ""
-        tableView.reloadData()
-        
-        let cell = tableView.cellForRow(at: indexPath) as! TopicsTableViewCell
-
-        if cell.selectionIndicator.image == UIImage(named: "unselected_icon") {
-            cell.selectionIndicator.image = UIImage(named: "selected_icon")
-            topic = cell.topicNameLabel.text!
-        } else {
-            cell.selectionIndicator.image = UIImage(named: "unselected_icon")
-            topic = ""
-        }
-    }
+//    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+//        topic = ""
+//        tableView.reloadData()
+//
+//        let cell = tableView.cellForRow(at: indexPath) as! TopicsTableViewCell
+//
+//        if cell.selectionIndicator.image == UIImage(named: "unselected_icon") {
+//            cell.selectionIndicator.image = UIImage(named: "selected_icon")
+//            topic = cell.topicNameLabel.text!
+//        } else {
+//            cell.selectionIndicator.image = UIImage(named: "unselected_icon")
+//            topic = ""
+//        }
+//    }
     
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "topicsCell", for: indexPath) as! TopicsTableViewCell
-        cell.topicNameLabel.text = allTopics[indexPath.row]
-        cell.selectionStyle = .none
-        
-        if cell.topicNameLabel.text == topic {
-            print("gleich")
-            cell.selectionIndicator.image = UIImage(named: "selected_icon")
-        } else {
-            cell.selectionIndicator.image = UIImage(named: "unselected_icon")
-        }
-        
-        return cell
-    }
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "topicsCell", for: indexPath) as! TopicsTableViewCell
+//        cell.topicNameLabel.text = allTopics[indexPath.row]
+//        cell.selectionStyle = .none
+//
+//        if cell.topicNameLabel.text == topic {
+//            print("gleich")
+//            cell.selectionIndicator.image = UIImage(named: "selected_icon")
+//        } else {
+//            cell.selectionIndicator.image = UIImage(named: "unselected_icon")
+//        }
+//
+//        return cell
+//    }
 }

@@ -75,6 +75,19 @@ class FeedbackViewController: UIViewController, UITextViewDelegate {
         return textView
     }()
     
+    let feedbackSymbolsCounterLabel: UILabel = {
+        let attributedText = NSMutableAttributedString(string: "Zeichen Anzahl: ", attributes: [NSAttributedString.Key.font: UIFont(name: "Montserrat-Medium", size: 15)!])
+        
+        attributedText.append(NSAttributedString(string: "0", attributes: [NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 15)!]))
+        
+        let label = UILabel()
+        label.attributedText = attributedText
+        label.textColor = UIColor.white
+        label.textAlignment = .right
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     
     //Send Feedback
     let sendFeedbackButton: UIButton = {
@@ -89,7 +102,7 @@ class FeedbackViewController: UIViewController, UITextViewDelegate {
         return button
     }()
     
-    var feedbackText: String?
+    var feedbackText = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,6 +121,9 @@ class FeedbackViewController: UIViewController, UITextViewDelegate {
         //Feedback text
         view.addSubview(feedbackTextView)
         
+        //Feedback Symbols Counter Label
+        view.addSubview(feedbackSymbolsCounterLabel)
+        
         //Send Feedback
         view.addSubview(sendFeedbackButton)
         
@@ -115,6 +131,7 @@ class FeedbackViewController: UIViewController, UITextViewDelegate {
         setUpBackTextImageButton()
         setUpInformationLabel()
         setUpFeedbackTextView()
+        setUpFeedbackSymbolsCounterLabel()
         setUpSendFeedbackButton()
         
         
@@ -129,15 +146,14 @@ class FeedbackViewController: UIViewController, UITextViewDelegate {
     }
     
     @objc func sendMail() {
-        guard let text = feedbackText, !text.isEmpty else {
-            let alert = UIAlertController(title: "Fehler", message: "Du musst noch dein Feedback eingeben.", preferredStyle: .alert)
+        if feedbackText.count < 20 || feedbackText.isEmpty {
+            let alert = UIAlertController(title: "Fehler", message: "Bitte gebe mindestens 20 Zeichen ein.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)
-            return
+        } else {
+            Database.database().reference().child("Feedback").childByAutoId().setValue(feedbackText)
+            dismiss(animated: true, completion: nil)
         }
-        
-        Database.database().reference().child("Feedback").childByAutoId().setValue(text)
-        dismiss(animated: true, completion: nil)
     }
     
     
@@ -150,15 +166,26 @@ class FeedbackViewController: UIViewController, UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         self.feedbackText = textView.text
+        
+        let attributedText = NSMutableAttributedString(string: "Zeichen Anzahl: ", attributes: [NSAttributedString.Key.font: UIFont(name: "Montserrat-Medium", size: 15)!])
+        
+        attributedText.append(NSAttributedString(string: "\(self.feedbackText.count)", attributes: [NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 15)!]))
+        
+        feedbackSymbolsCounterLabel.attributedText = attributedText
     }
     
     //MARK: - SetUps
     
     func setUpSendFeedbackButton() {
         sendFeedbackButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        sendFeedbackButton.topAnchor.constraint(equalTo: feedbackTextView.bottomAnchor, constant: 33).isActive = true
+        sendFeedbackButton.topAnchor.constraint(equalTo: feedbackTextView.bottomAnchor, constant: 100).isActive = true
         sendFeedbackButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -100).isActive = true
         sendFeedbackButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
+    
+    func setUpFeedbackSymbolsCounterLabel() {
+        feedbackSymbolsCounterLabel.rightAnchor.constraint(equalTo: feedbackTextView.rightAnchor).isActive = true
+        feedbackSymbolsCounterLabel.topAnchor.constraint(equalTo: feedbackTextView.bottomAnchor, constant: 10).isActive = true
     }
     
     func setUpFeedbackTextView() {

@@ -8,5 +8,6 @@ target 'vocbuddy' do
   # Pods for vocbuddy
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
-
+  pod 'lottie-ios'
+ 
 end

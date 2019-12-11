@@ -27,6 +27,7 @@
 		8C6CDB1A238C13CD001338F7 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C6CDB19238C13CD001338F7 /* Montserrat-Regular.ttf */; };
 		8C6CDB1C238D00AC001338F7 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CDB1B238D00AC001338F7 /* Word.swift */; };
 		8CC2F22D238D1524009E3982 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CC2F22C238D1524009E3982 /* GoogleService-Info.plist */; };
+		8CE90E9F23A0CDB70034CEAB /* animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 8CE90E9E23A0CDB70034CEAB /* animation.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		8C6CDB19238C13CD001338F7 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		8C6CDB1B238D00AC001338F7 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		8CC2F22C238D1524009E3982 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8CE90E9E23A0CDB70034CEAB /* animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animation.json; sourceTree = "<group>"; };
 		C9EC5A1E41B10A4CB8C524D5 /* Pods-vocbuddy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vocbuddy.release.xcconfig"; path = "Target Support Files/Pods-vocbuddy/Pods-vocbuddy.release.xcconfig"; sourceTree = "<group>"; };
 		D3A95B2BFEE48516B0CCF7C6 /* Pods_vocbuddy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vocbuddy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E664B3B5DD16DB65C5684E4C /* Pods-vocbuddy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vocbuddy.debug.xcconfig"; path = "Target Support Files/Pods-vocbuddy/Pods-vocbuddy.debug.xcconfig"; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				8C507DD323894CAF002880B2 /* Assets.xcassets */,
 				8C6CDB1B238D00AC001338F7 /* Word.swift */,
 				8C507DD523894CAF002880B2 /* LaunchScreen.storyboard */,
+				8CE90E9E23A0CDB70034CEAB /* animation.json */,
 				8C6CDB11238C015E001338F7 /* Sounds */,
 				8C507DE223896697002880B2 /* Fonts */,
 				8C507DD823894CAF002880B2 /* Info.plist */,
@@ -216,6 +219,7 @@
 			files = (
 				8C6CDB1A238C13CD001338F7 /* Montserrat-Regular.ttf in Resources */,
 				8C6CDB09238ADAEC001338F7 /* Montserrat-SemiBold.ttf in Resources */,
+				8CE90E9F23A0CDB70034CEAB /* animation.json in Resources */,
 				8C6CDB07238AD5EA001338F7 /* Montserrat-Bold.ttf in Resources */,
 				8C507DD723894CAF002880B2 /* LaunchScreen.storyboard in Resources */,
 				8C6CDB15238C031F001338F7 /* correct.mp3 in Resources */,

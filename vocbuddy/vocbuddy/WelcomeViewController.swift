@@ -533,33 +533,35 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
     
     
     @objc func start() {
-        if firstTime {
-            firstTime = false
-            UserDefaults.standard.set(firstTime, forKey: "firstTime")
+        if allWords.isEmpty == false {
+            if firstTime {
+                firstTime = false
+                UserDefaults.standard.set(firstTime, forKey: "firstTime")
 
-            UIView.animate(withDuration: 0.25) {
-                //Reset
-                self.welcomeLabel.alpha = 1
-                self.learnedWordsLabel.alpha = 1
-                self.startButton.setTitle("Abfrage starten", for: .normal)
+                UIView.animate(withDuration: 0.25) {
+                    //Reset
+                    self.welcomeLabel.alpha = 1
+                    self.learnedWordsLabel.alpha = 1
+                    self.startButton.setTitle("Abfrage starten", for: .normal)
 
-                self.adviceLabel.alpha = 0
-                self.tapOnSettingsIcon.alpha = 0
+                    self.adviceLabel.alpha = 0
+                    self.tapOnSettingsIcon.alpha = 0
+                }
+            } else {
+                print(todaysWords.count)
+                print(alreadyDoneWords.count)
+                print(allWords.count)
+
+                selectWords()
+                generateQuestions()
+
+                let playViewController = PlayViewController()
+                playViewController.modalPresentationStyle = .overFullScreen
+                playViewController.resultDelegate = self
+                playViewController.words = generatedWords
+                playViewController.answers = allWords
+                present(playViewController, animated: true, completion: nil)
             }
-        } else {
-            print(todaysWords.count)
-            print(alreadyDoneWords.count)
-            print(allWords.count)
-
-            selectWords()
-            generateQuestions()
-
-            let playViewController = PlayViewController()
-            playViewController.modalPresentationStyle = .overFullScreen
-            playViewController.resultDelegate = self
-            playViewController.words = generatedWords
-            playViewController.answers = allWords
-            present(playViewController, animated: true, completion: nil)
         }
     }
     

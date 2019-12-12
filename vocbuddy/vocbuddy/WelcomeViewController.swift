@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
-import Lottie
+//import Lottie
 
 var allWords = [Word]()
 var currentTopic = ""
@@ -145,12 +145,12 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
     
     
     //Lottie Animation
-    let lottieView: AnimationView = {
-        let lottieView = AnimationView()
-        lottieView.isHidden = true
-        lottieView.translatesAutoresizingMaskIntoConstraints = false
-        return lottieView
-    }()
+//    let lottieView: AnimationView = {
+//        let lottieView = AnimationView()
+//        lottieView.isHidden = true
+//        lottieView.translatesAutoresizingMaskIntoConstraints = false
+//        return lottieView
+//    }()
     
     
     //Loading Label
@@ -186,6 +186,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
     
     var numberOfWords = 0
             
+    
     
 
     override func viewDidLoad() {
@@ -265,11 +266,15 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
 //        self.lottieView.play()
         
         createUser()
-
-
+//
+//
         getSavedWords()
-        checkDate()
-
+//        checkDate()
+        
+//        saveWord(level: "Beginner")
+        
+//        loadWords(level: "Beginner")
+        
     }
     
     
@@ -384,6 +389,13 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         }
     }
     
+    func checkWords(level: String) {
+        print("Check")
+        Database.database().reference().child("Words").child(level).child("Number").observe(.value) { (snapshot) in
+            print(snapshot)
+            self.numberOfWords = snapshot.value as! Int
+        }
+    }
     
     func getSavedWords() {
         //Check if a topic and a level is available
@@ -393,6 +405,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
 //        guard let topic = topicOfUD, !topic.isEmpty, let level = levelOfUD, !level.isEmpty else { return }
         
         guard let level = levelOfUD, !level.isEmpty else { return }
+//        self.checkWords(level: level)
 
         
 //        currentTopic = topic
@@ -402,9 +415,46 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         print("Level: \(currentLevel)")
         
         allWords.removeAll()
-        
-        getWords(level: level)
+        getWords(level: currentLevel)
+
+        Database.database().reference().child("Words").child(currentLevel).child("Number").observe(.value) { (snapshot) in
+//            self.numberOfWords = snapshot.value as! Int
+            DispatchQueue.main.async {
+                print(allWords.count)
+                print(snapshot.value as! Int)
+                if snapshot.value as! Int != allWords.count {
+                    self.checkNewWords(level: currentLevel)
+                }
+            }
+        }
     }
+    
+    func checkNewWords(level: String) {
+
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+
+        Database.database().reference().child("Words").child(level).observe(.childAdded) { (snapshot) in
+            self.setUpLoading(true)
+            self.spinnerActivity.startAnimating()
+            if let dict = snapshot.value as? [String: Any] {
+                let newWord = Word(original: "\(dict["original"]!)", translated: "\(dict["translated"]!)", level: "\(dict["level"]!)", phase: "1", lastQuery: dateFormatter.string(from: date), learned: false)
+                if allWords.contains(where: {$0.original == newWord.original}) == false {
+                    allWords.append(newWord)
+                    let encoder = JSONEncoder()
+                    if let encoded = try? encoder.encode(allWords) {
+                        UserDefaults.standard.set(encoded, forKey: level)
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                self.setUpLoading(false)
+                self.spinnerActivity.stopAnimating()
+            }
+        }
+    }
+    
     
     
     func getWords(level: String) {
@@ -438,6 +488,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
 
         if let savedWords = UserDefaults.standard.object(forKey: level) as? Data {
             if let loadedWords = try? JSONDecoder().decode([FailableDecodable<Word>].self, from: savedWords).compactMap { $0.base } {
+                print("Load")
                 allWords = loadedWords
             }
         } else {
@@ -482,7 +533,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
     
     
     @objc func start() {
-        print("All Words: \(allWords.count)")
+        print(allWords)
         if firstTime {
             firstTime = false
             UserDefaults.standard.set(firstTime, forKey: "firstTime")
@@ -804,7 +855,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
     
     func setUpLoading(_ loading: Bool) {
         if loading {
-            lottieView.isHidden = false
+//            lottieView.isHidden = false
             loadingLabel.isHidden = false
             settingsIconButton.alpha = 0.0
             settingsTextButton.alpha = 0.0
@@ -814,7 +865,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
             adviceLabel.alpha = 0.0
             learnedWordsLabel.alpha = 0.0
         } else {
-            lottieView.isHidden = true
+//            lottieView.isHidden = true
             loadingLabel.isHidden = true
             settingsIconButton.alpha = 1.0
             settingsTextButton.alpha = 1.0
@@ -835,24 +886,19 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         }
     }
     
-//    func setUpSpinnerActivity() {
-//        spinnerActivity.color = UIColor(r: 255, g: 114, b: 0)
-//        let x = view.frame.width / 2 - 44
-//        let y = view.frame.height / 2 - 50.25
-//        spinnerActivity.frame = CGRect(x: x, y: y, width: 88, height: 105)
-//        spinnerActivity.backgroundColor = UIColor.white
-//        spinnerActivity.layer.cornerRadius = 10
-//    }
-    
     func setUpLoadingScreen() {
         //Spinner Activity
         spinnerActivity.color = UIColor.white
         spinnerActivity.center = CGPoint(x: self.view.frame.size.width / 2.0, y: self.view.frame.size.height / 2.0)
-//        let x = view.frame.width / 2 - 44
-//        let y = view.frame.height / 2 - 50.25
-//        spinnerActivity.frame = CGRect(x: x, y: y, width: 88, height: 105)
-//        spinnerActivity.backgroundColor = UIColor.white
-//        spinnerActivity.layer.cornerRadius = 10
+
+        
+//        lottieView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        lottieView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//        lottieView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -200).isActive = true
+//        lottieView.heightAnchor.constraint(equalTo: lottieView.widthAnchor).isActive = true
+//
+//        lottieView.animation = Animation.named("animation")
+//        lottieView.loopMode = .loop
         
         //Loading Label
         loadingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

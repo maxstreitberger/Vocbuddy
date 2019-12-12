@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="19C32e" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Advanced" representedClassName="Advanced" syncable="YES" codeGenerationType="class">
+        <attribute name="lastQuery" optional="YES" attributeType="String"/>
+        <attribute name="learned" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="level" optional="YES" attributeType="String"/>
+        <attribute name="original" optional="YES" attributeType="String"/>
+        <attribute name="phase" optional="YES" attributeType="String"/>
+        <attribute name="translated" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Beginner" representedClassName="Beginner" syncable="YES" codeGenerationType="class">
+        <attribute name="lastQuery" optional="YES" attributeType="String"/>
+        <attribute name="learned" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="level" optional="YES" attributeType="String"/>
+        <attribute name="original" optional="YES" attributeType="String"/>
+        <attribute name="phase" optional="YES" attributeType="String"/>
+        <attribute name="translated" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Profi" representedClassName="Profi" syncable="YES" codeGenerationType="class">
+        <attribute name="lastQuery" optional="YES" attributeType="String"/>
+        <attribute name="learned" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="level" optional="YES" attributeType="String"/>
+        <attribute name="original" optional="YES" attributeType="String"/>
+        <attribute name="phase" optional="YES" attributeType="String"/>
+        <attribute name="translated" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="Beginner" positionX="-54" positionY="-9" width="128" height="133"/>
+        <element name="Advanced" positionX="-36" positionY="36" width="128" height="133"/>
+        <element name="Profi" positionX="-18" positionY="45" width="128" height="133"/>
+    </elements>
+</model>

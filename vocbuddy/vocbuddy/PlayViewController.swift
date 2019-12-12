@@ -17,14 +17,6 @@ class PlayViewController: UIViewController, AVAudioPlayerDelegate {
     
     //MARK: - Objects
     
-    //Top Spacing
-       let spacingView: UIView = {
-           let view = UIView()
-           view.backgroundColor = UIColor.clear
-           view.translatesAutoresizingMaskIntoConstraints = false
-           return view
-       }()
-    
     //Number of Questions Indicator View
     let questionIndicatorBackgroundView: UIView = {
         let view = UIView()
@@ -95,6 +87,13 @@ class PlayViewController: UIViewController, AVAudioPlayerDelegate {
         stackView.spacing = 16
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
+    }()
+    
+    let helpView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     
@@ -216,8 +215,7 @@ class PlayViewController: UIViewController, AVAudioPlayerDelegate {
         view.backgroundColor = UIColor(r: 255, g: 114, b: 0)
         
         //Top Spacing
-        view.addSubview(spacingView)
-
+        view.addSubview(helpView)
         
         //Indicator
         view.addSubview(questionIndicatorBackgroundView)
@@ -693,15 +691,14 @@ class PlayViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     func setUpQuestion() {
-        //Top Spacing
-        spacingView.topAnchor.constraint(equalTo: separationLine.bottomAnchor).isActive = true
-        spacingView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.21).isActive = true
-        spacingView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        helpView.topAnchor.constraint(equalTo: separationLine.bottomAnchor).isActive = true
+        helpView.bottomAnchor.constraint(equalTo: answerButtonStackView.topAnchor).isActive = true
+        helpView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         questionStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 //        questionStackView.topAnchor.constraint(equalTo: separationLine.bottomAnchor, constant: 123).isActive = true
 //        questionStackView.topAnchor.constraint(equalTo: separationLine.bottomAnchor, constant: 50).isActive = true
-        questionStackView.bottomAnchor.constraint(equalTo: spacingView.bottomAnchor).isActive = true
+        questionStackView.centerYAnchor.constraint(equalTo: helpView.centerYAnchor).isActive = true
         questionStackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -100).isActive = true
         
         questionStackView.addArrangedSubview(originalWord)

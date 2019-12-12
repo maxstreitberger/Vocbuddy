@@ -533,7 +533,6 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
     
     
     @objc func start() {
-        print(allWords)
         if firstTime {
             firstTime = false
             UserDefaults.standard.set(firstTime, forKey: "firstTime")
@@ -563,6 +562,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
             present(playViewController, animated: true, completion: nil)
         }
     }
+    
     
     func selectWords() {
         

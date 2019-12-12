@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		22C4624547E914F4E13307FB /* Pods_vocbuddy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A95B2BFEE48516B0CCF7C6 /* Pods_vocbuddy.framework */; };
+		8C0A309023A23F8300C096F7 /* wrong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8C0A308F23A23F8300C096F7 /* wrong.mp3 */; };
+		8C0A309223A23F8E00C096F7 /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8C0A309123A23F8E00C096F7 /* correct.mp3 */; };
 		8C507DCB23894CAA002880B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C507DCA23894CAA002880B2 /* AppDelegate.swift */; };
 		8C507DCD23894CAA002880B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C507DCC23894CAA002880B2 /* SceneDelegate.swift */; };
 		8C507DD423894CAF002880B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C507DD323894CAF002880B2 /* Assets.xcassets */; };
@@ -21,8 +23,6 @@
 		8C6CDB0B238AEAC3001338F7 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CDB0A238AEAC3001338F7 /* PlayViewController.swift */; };
 		8C6CDB0E238AFFD7001338F7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CDB0D238AFFD7001338F7 /* SettingsViewController.swift */; };
 		8C6CDB10238B0AA3001338F7 /* TopicsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CDB0F238B0AA3001338F7 /* TopicsTableViewCell.swift */; };
-		8C6CDB14238C031F001338F7 /* wrong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8C6CDB12238C031F001338F7 /* wrong.mp3 */; };
-		8C6CDB15238C031F001338F7 /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8C6CDB13238C031F001338F7 /* correct.mp3 */; };
 		8C6CDB17238C07CF001338F7 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CDB16238C07CF001338F7 /* FeedbackViewController.swift */; };
 		8C6CDB1A238C13CD001338F7 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8C6CDB19238C13CD001338F7 /* Montserrat-Regular.ttf */; };
 		8C6CDB1C238D00AC001338F7 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CDB1B238D00AC001338F7 /* Word.swift */; };
@@ -32,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C0A308F23A23F8300C096F7 /* wrong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wrong.mp3; sourceTree = "<group>"; };
+		8C0A309123A23F8E00C096F7 /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
 		8C507DC723894CAA002880B2 /* vocbuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vocbuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C507DCA23894CAA002880B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C507DCC23894CAA002880B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,8 +49,6 @@
 		8C6CDB0A238AEAC3001338F7 /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
 		8C6CDB0D238AFFD7001338F7 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8C6CDB0F238B0AA3001338F7 /* TopicsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsTableViewCell.swift; sourceTree = "<group>"; };
-		8C6CDB12238C031F001338F7 /* wrong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wrong.mp3; sourceTree = "<group>"; };
-		8C6CDB13238C031F001338F7 /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
 		8C6CDB16238C07CF001338F7 /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		8C6CDB19238C13CD001338F7 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		8C6CDB1B238D00AC001338F7 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
@@ -145,8 +145,8 @@
 		8C6CDB11238C015E001338F7 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				8C6CDB13238C031F001338F7 /* correct.mp3 */,
-				8C6CDB12238C031F001338F7 /* wrong.mp3 */,
+				8C0A309123A23F8E00C096F7 /* correct.mp3 */,
+				8C0A308F23A23F8300C096F7 /* wrong.mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -225,12 +225,12 @@
 				8CE90E9F23A0CDB70034CEAB /* animation.json in Resources */,
 				8C6CDB07238AD5EA001338F7 /* Montserrat-Bold.ttf in Resources */,
 				8C507DD723894CAF002880B2 /* LaunchScreen.storyboard in Resources */,
-				8C6CDB15238C031F001338F7 /* correct.mp3 in Resources */,
 				8C507DE123896693002880B2 /* Montserrat-ExtraBold.ttf in Resources */,
 				8C507DE423896E29002880B2 /* Montserrat-Medium.ttf in Resources */,
 				8CC2F22D238D1524009E3982 /* GoogleService-Info.plist in Resources */,
-				8C6CDB14238C031F001338F7 /* wrong.mp3 in Resources */,
+				8C0A309023A23F8300C096F7 /* wrong.mp3 in Resources */,
 				8C507DD423894CAF002880B2 /* Assets.xcassets in Resources */,
+				8C0A309223A23F8E00C096F7 /* correct.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

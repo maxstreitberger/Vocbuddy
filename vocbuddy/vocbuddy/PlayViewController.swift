@@ -28,7 +28,9 @@ class PlayViewController: UIViewController, AVAudioPlayerDelegate {
     //Number of Questions Indicator View
     let questionIndicatorBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor(r: 255, g: 114, b: 0)
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderWidth = 1
         view.layer.cornerRadius = 10
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -36,7 +38,7 @@ class PlayViewController: UIViewController, AVAudioPlayerDelegate {
     
     let questionIndicatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(r: 255, g: 114, b: 0)
+        view.backgroundColor = UIColor.white
         view.layer.cornerRadius = 9
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

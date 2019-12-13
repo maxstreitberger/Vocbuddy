@@ -46,6 +46,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         label.textColor = UIColor.white
         label.text = "Hey! Willkommen\nin der App."
         label.numberOfLines = 2
+        label.alpha = 0.0
         label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -58,6 +59,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         let button = UIButton()
         button.setImage(UIImage(named: "settings_icon"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFill
+        button.alpha = 0.0
         button.addTarget(self, action: #selector(settings), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -69,6 +71,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont(name: "Montserrat-Medium", size: 12)
         button.titleLabel?.textAlignment = .right
+        button.alpha = 0.0
         button.addTarget(self, action: #selector(settings), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -87,6 +90,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         label.textColor = UIColor.white
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
+        label.alpha = 0.0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -101,6 +105,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         button.setTitleColor(UIColor.white, for: .normal)
         button.backgroundColor = UIColor(r: 0, g: 127, b: 255)
         button.layer.cornerRadius = 25
+        button.alpha = 0.0
         button.addTarget(self, action: #selector(start), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -114,7 +119,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         button.setTitleColor(UIColor(r: 255, g: 114, b: 0), for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 25
-        button.alpha = 0
+        button.alpha = 0.0
         button.addTarget(self, action: #selector(feedback), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -130,6 +135,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         label.textColor = UIColor.white
         label.numberOfLines = 2
         label.lineBreakMode = .byWordWrapping
+        label.alpha = 0.0
         label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -139,6 +145,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
         let imageView = UIImageView()
         imageView.image = UIImage(named: "tap_on_settings_icon")
         imageView.contentMode = .scaleAspectFill
+        imageView.alpha = 0.0
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -223,6 +230,9 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
 
         //Spinner Activity
         view.addSubview(spinnerActivity)
+        
+        setUpLoading(true)
+        spinnerActivity.startAnimating()
                 
         
         if let loadFirstTime = UserDefaults.standard.object(forKey: "firstTime") as? Bool {
@@ -269,7 +279,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
 //
 //
         getSavedWords()
-//        checkDate()
+        checkDate()
         
 //        saveWord(level: "Beginner")
         
@@ -533,21 +543,22 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
     
     
     @objc func start() {
-        if allWords.isEmpty == false {
-            if firstTime {
-                firstTime = false
-                UserDefaults.standard.set(firstTime, forKey: "firstTime")
+        
+        if firstTime {
+            firstTime = false
+            UserDefaults.standard.set(firstTime, forKey: "firstTime")
 
-                UIView.animate(withDuration: 0.25) {
-                    //Reset
-                    self.welcomeLabel.alpha = 1
-                    self.learnedWordsLabel.alpha = 1
-                    self.startButton.setTitle("Abfrage starten", for: .normal)
+            UIView.animate(withDuration: 0.25) {
+                //Reset
+                self.welcomeLabel.alpha = 1
+                self.learnedWordsLabel.alpha = 1
+                self.startButton.setTitle("Abfrage starten", for: .normal)
 
-                    self.adviceLabel.alpha = 0
-                    self.tapOnSettingsIcon.alpha = 0
-                }
-            } else {
+                self.adviceLabel.alpha = 0
+                self.tapOnSettingsIcon.alpha = 0
+            }
+        } else {
+            if allWords.isEmpty == false {
                 print(todaysWords.count)
                 print(alreadyDoneWords.count)
                 print(allWords.count)
@@ -861,13 +872,17 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
             loadingLabel.isHidden = false
             settingsIconButton.alpha = 0.0
             settingsTextButton.alpha = 0.0
+            welcomeLabel.isHidden = true
             welcomeLabel.alpha = 0.0
             startButton.alpha = 0.0
             tapOnSettingsIcon.alpha = 0.0
             adviceLabel.alpha = 0.0
+            learnedWordsLabel.isHidden = true
             learnedWordsLabel.alpha = 0.0
         } else {
 //            lottieView.isHidden = true
+            welcomeLabel.isHidden = false
+            learnedWordsLabel.isHidden = false
             loadingLabel.isHidden = true
             settingsIconButton.alpha = 1.0
             settingsTextButton.alpha = 1.0

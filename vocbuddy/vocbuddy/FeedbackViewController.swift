@@ -70,6 +70,7 @@ class FeedbackViewController: UIViewController, UITextViewDelegate {
         textView.layer.cornerRadius = 8
         textView.layer.borderColor = UIColor.white.cgColor
         textView.layer.borderWidth = 2
+        textView.returnKeyType = .send
         textView.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
@@ -172,6 +173,12 @@ class FeedbackViewController: UIViewController, UITextViewDelegate {
         attributedText.append(NSAttributedString(string: "\(self.feedbackText.count)", attributes: [NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 15)!]))
         
         feedbackSymbolsCounterLabel.attributedText = attributedText
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        self.feedbackText = textView.text
+        sendMail()
+        return true
     }
     
     //MARK: - SetUps

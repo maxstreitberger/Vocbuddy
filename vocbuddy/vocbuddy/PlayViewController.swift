@@ -330,26 +330,37 @@ class PlayViewController: UIViewController, AVAudioPlayerDelegate {
                         //Check phase
                         if words[question-1].learned == false {
                             //Move word one phase up
+                        
                             let newPhase = Int(words[question-1].phase)! + 1
+//                            let word = Word(original: words[question-1].original, translated: words[question-1].translated, level: words[question-1].level, phase: "\(newPhase)", lastQuery: updateQueryDate(Int(words[question-1].phase)!), learned: true)
                             words[question-1].phase = "\(newPhase)"
                             words[question-1].lastQuery = updateQueryDate(Int(words[question-1].phase)!)
                             words[question-1].learned = true
                             rightWords.append(words[question-1])
-                        }
+                            
+//                            let index = words.firstIndex(where: {$0.original == words[question-1].original})
+//                            words.remove(at: index!)
+//                            words.insert(word, at: index!)
                         
+                        } else {
+                            rightWords.append(words[question-1])
+                        }
+
                         playSound(answer: "correct")
                         
                     } else {
                         sender.backgroundColor = UIColor(r: 225, g: 72, b: 110)
                         
+                        //SetUp ImageView Constraints
+                        setUpImageViewConstraints(tag: sender.tag, result: false, correctAnswer: correctAnswerButton!)
+                        
                         //Move word back to first phase
                         words[question-1].phase = "1"
+                        words[question-1].learned = false
                         words[question-1].lastQuery = updateQueryDate(Int(words[question-1].phase)!)
                         
                         wrongWords.append(words[question-1])
 
-                        //SetUp ImageView Constraints
-                        setUpImageViewConstraints(tag: sender.tag, result: false, correctAnswer: correctAnswerButton!)
                         
                         playSound(answer: "wrong")
                     }
@@ -386,6 +397,8 @@ class PlayViewController: UIViewController, AVAudioPlayerDelegate {
                         words[question-1].lastQuery = updateQueryDate(Int(words[question-1].phase)!)
                         words[question-1].learned = true
                         rightWords.append(words[question-1])
+                    } else {
+                        rightWords.append(words[question-1])
                     }
                     
                     playSound(answer: "correct")
@@ -395,6 +408,7 @@ class PlayViewController: UIViewController, AVAudioPlayerDelegate {
 
                     //Move word back to first phase
                     words[question-1].phase = "1"
+                    words[question-1].learned = false
                     words[question-1].lastQuery = updateQueryDate(Int(words[question-1].phase)!)
                     
                     wrongWords.append(words[question-1])
@@ -432,6 +446,8 @@ class PlayViewController: UIViewController, AVAudioPlayerDelegate {
                     words[question-1].lastQuery = updateQueryDate(Int(words[question-1].phase)!)
                     words[question-1].learned = true
                     rightWords.append(words[question-1])
+                } else {
+                    rightWords.append(words[question-1])
                 }
                 
                 playSound(answer: "correct")
@@ -441,9 +457,11 @@ class PlayViewController: UIViewController, AVAudioPlayerDelegate {
 
                 //Move word back to first phase
                 words[question-1].phase = "1"
+                words[question-1].learned = false
                 words[question-1].lastQuery = updateQueryDate(Int(words[question-1].phase)!)
                 
                 wrongWords.append(words[question-1])
+                print(wrongWords)
                 
                 //SetUp ImageView Constraints
                 setUpImageViewConstraints(tag: sender.tag, result: false, correctAnswer: correctAnswerButton!)
@@ -544,6 +562,11 @@ class PlayViewController: UIViewController, AVAudioPlayerDelegate {
         
         //End
         if (currentQuestion == 11) && (previewState == false) {
+            print(numberOfCorrectAnswers)
+            print(words)
+            print(rightWords)
+            print(wrongWords)
+            print(alreadyKnown)
             resultDelegate?.result(rightWordsInt: numberOfCorrectAnswers, learnedWordsList: words, rightWords: rightWords, wrongWords: wrongWords, alreadyKnownWords: alreadyKnown)
             dismiss(animated: true, completion: nil)
         } else {

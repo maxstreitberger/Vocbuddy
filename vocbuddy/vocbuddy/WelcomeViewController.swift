@@ -296,13 +296,22 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
 
         
         createUser()
-        getSavedWords()
-        checkDate()
     }
     
     
     
     //MARK: - Functions
+    
+    func createUser() {
+        Auth.auth().signInAnonymously { (result, error) in
+            if error != nil {
+                print("ERROR: \(error!.localizedDescription)")
+            } else {
+                self.getSavedWords()
+                self.checkDate()
+            }
+        }
+    }
     
     func checkDate() {
         print("All Words: \(allWords)")
@@ -402,15 +411,7 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
 
     }
     
-    func createUser() {
-        Auth.auth().signInAnonymously { (result, error) in
-            if error != nil {
-                print(error!.localizedDescription)
-            } else {
-                print(result!)
-            }
-        }
-    }
+    
     
     func getSavedWords() {
         //Check if a topic and a level is available
@@ -437,7 +438,10 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
             DispatchQueue.main.async {
                 print(allWords.count)
                 print(snapshot.value as! Int)
-                if snapshot.value as! Int != allWords.count {
+                if allWords.count == 0 {
+                    allWords.removeAll()
+                    self.getWords(level: currentLevel)
+                } else if snapshot.value as! Int != allWords.count {
                     self.checkNewWords(level: currentLevel)
                 } else {
                     self.setUpLoading(false)
@@ -705,8 +709,6 @@ class WelcomeViewController: UIViewController, ResultDelegate, SettingsDelegate 
             }
         }
     }
- 
-
 
     
     @objc func start() {
